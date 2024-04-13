@@ -58,9 +58,10 @@ class JoinRoomPage extends StatelessWidget {
 
                   50.h.verticalSpace,
 
-                  // create room button
+                  // join room button
                   ElevatedButton(
-                    onPressed: joinRoom(),
+                    style: ElevatedButton.styleFrom(elevation: 3),
+                    onPressed: () => joinRoom(),
                     child: Text(
                       'Join Room',
                       style: TextStyle(

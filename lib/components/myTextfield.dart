@@ -18,6 +18,7 @@ class MyTextFormField extends StatelessWidget {
     this.readOnly = false,
     this.validator,
     this.autovalidateMode,
+    this.autofocus,
   });
   final String hintText;
   final Icon? prefixIcon;
@@ -30,12 +31,14 @@ class MyTextFormField extends StatelessWidget {
   final void Function(String)? onChanged;
   final Function()? onTap;
   final bool readOnly;
+  final bool? autofocus;
   final String? Function(String?)? validator;
   final AutovalidateMode? autovalidateMode;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autofocus: autofocus ?? false,
       autovalidateMode: autovalidateMode,
       validator: validator,
       obscureText: obscuretext,

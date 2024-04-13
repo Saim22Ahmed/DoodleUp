@@ -24,7 +24,7 @@ class MyApp extends ConsumerWidget {
         debugShowCheckedModeBanner: false,
         title: 'Doodle Up',
         theme: ref.watch(themeProvider).themeData,
-        home: DrawingScreen(),
+        home: HomePage(),
       ),
     );
   }

@@ -1,5 +1,5 @@
 import 'package:doodle_up/pages/create_room_page.dart';
-import 'package:doodle_up/pages/join_screen.dart';
+import 'package:doodle_up/pages/join_room_screen.dart';
 import 'package:doodle_up/providers/theme_provider.dart';
 import 'package:doodle_up/theme/dark_theme.dart';
 import 'package:doodle_up/theme/light_theme.dart';
@@ -54,6 +54,7 @@ class HomePage extends ConsumerWidget {
                       // Create button
 
                       ElevatedButton(
+                        style: ElevatedButton.styleFrom(elevation: 3),
                         onPressed: () => Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -70,6 +71,7 @@ class HomePage extends ConsumerWidget {
                       // Join button
 
                       ElevatedButton(
+                        style: ElevatedButton.styleFrom(elevation: 3),
                         onPressed: () => Navigator.push(
                             context,
                             MaterialPageRoute(
