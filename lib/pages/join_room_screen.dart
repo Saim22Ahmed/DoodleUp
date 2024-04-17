@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:doodle_up/components/myTextfield.dart';
+import 'package:doodle_up/pages/drawing_screen.dart';
+import 'package:doodle_up/utils/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,7 +15,24 @@ class JoinRoomPage extends StatelessWidget {
   final TextEditingController _roomNameController = TextEditingController();
 
   // functions
-  joinRoom() {}
+  joinRoom(BuildContext context, WidgetRef ref) {
+    if (_nameController.text.isNotEmpty &&
+        _roomNameController.text.isNotEmpty) {
+      // when validating fields , preparing data to sent .
+      Map data = {
+        'userName': _nameController.text,
+        'roomName': _roomNameController.text,
+      };
+      // sendind the data to the drawing screen
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) =>
+              DrawingScreen(data: data, screenFrom: 'joinRoom')));
+    } else {
+      log('fields are empty');
+      ref.read(utilsProvider).showSnackBar(context);
+    }
+    ;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,14 +78,19 @@ class JoinRoomPage extends StatelessWidget {
                   50.h.verticalSpace,
 
                   // join room button
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(elevation: 3),
-                    onPressed: () => joinRoom(),
-                    child: Text(
-                      'Join Room',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 18.sp),
-                    ),
+                  Consumer(
+                    builder:
+                        (BuildContext context, WidgetRef ref, Widget? child) {
+                      return ElevatedButton(
+                        style: ElevatedButton.styleFrom(elevation: 3),
+                        onPressed: () => joinRoom(context, ref),
+                        child: Text(
+                          'Join Room',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18.sp),
+                        ),
+                      );
+                    },
                   )
                 ],
               ),

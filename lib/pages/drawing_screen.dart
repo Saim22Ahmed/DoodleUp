@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:doodle_up/models/MyCustomPainter.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,8 @@ class DrawingScreen extends StatefulWidget {
 
 class _DrawingScreenState extends State<DrawingScreen> {
   // initialization
-  String roomData = "";
+  Map roomData = {};
+  List points = [];
   late io.Socket _socket;
 
   @override
@@ -34,7 +36,10 @@ class _DrawingScreenState extends State<DrawingScreen> {
 
     if (widget.screenFrom == 'createRoom') {
       _socket.emit('create-room', widget.data);
+    } else {
+      _socket.emit('join-room', widget.data);
     }
+
     _socket.connect();
 
     //listening to socket
@@ -56,11 +61,37 @@ class _DrawingScreenState extends State<DrawingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: Text(widget.data.toString()),
-      ),
-    );
+        body: Stack(
+      children: [
+        Column(
+          children: [
+            // Drawing Screen
+            Container(
+                height: height * 0.55,
+                width: width,
+                color: Colors.yellow,
+                child: GestureDetector(
+                  onPanUpdate: (details) {},
+                  onPanStart: (details) {},
+                  onPanEnd: (details) {},
+                  child: SizedBox.expand(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: RepaintBoundary(
+                        child: CustomPaint(
+                          size: Size.infinite,
+                          // painter: MyCustomPainter(pointsList: points),
+                        ),
+                      ),
+                    ),
+                  ),
+                ))
+          ],
+        )
+      ],
+    ));
   }
 }
