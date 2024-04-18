@@ -17,7 +17,7 @@ ThemeData lightTheme = ThemeData(
     backgroundColor: Colors.transparent,
   ),
   colorScheme: ColorScheme.light(
-    background: Colors.grey[200]!,
+    background: Colors.grey[100]!,
     primary: Colors.white,
     onPrimary: Color(0xff00B4D8),
     onPrimaryContainer: Colors.grey[500]!,

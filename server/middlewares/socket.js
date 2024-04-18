@@ -15,6 +15,21 @@ export const SocketSetup = () => {
 
     // Join Room
     socket.on("join-room", (roomData) => joinRoom(io, socket, roomData));
+
+    // whiteboard socket
+    socket.on("paint", ({ details, roomName }) => {
+      io.to(roomName).emit("points", { details: details });
+    });
+
+    // color socket
+    socket.on("color-change", ({ color, roomName }) => {
+      io.to(roomName).emit("color-change", color);
+    });
+
+    //stroke-width
+    socket.on("stroke-width", ({ value, roomName }) => {
+      io.to(roomName).emit("stroke-width", value);
+    });
   });
 
   server.listen(process.env.PORT || 3000, "0.0.0.0", () => {
